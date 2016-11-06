@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angular rx todomvc</title>
+	<style>
+		[ng-cloak] {
+			display: none;
+		}
+	</style>
+</head>
+<body ng-app="app" ng-controller="AppCtrl as app" ng-cloak>
+
+
+<input type="text" ng-model="app.todo">
+<button type="button" ng-click="app.addTodo(app.todo)">add todo</button>
+
+<ul>
+	<li ng-repeat="todo in app.todos$ | async:this track by $index">
+		<input type="checkbox" ng-checked="todo.status" ng-click="app.switchTodoStatus(todo, todo.status)">
+		<span ng-bind="todo.content"></span>
+		<button type="button" ng-click="app.removeTodo(todo)">×</button>
+	</li>
+</ul>
+
+共<span ng-bind="app.todosLength | async"></span>条任务
+已完成<span ng-bind="app.doneTodosLength | async"></span>条任务
+
+<script src="/main.js"></script>
+
+</body>
+</html>
